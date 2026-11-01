@@ -1,0 +1,1113 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>سفر در مسیر جبر و معادله (ریاضی هشتم-فصل۴)</title>
+
+<!-- لود فونت استاندارد فارسی Vazirmatn -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css">
+
+<!-- کتابخانه‌های تبدیل HTML به عکس و ساخت PDF افقی -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+<style>
+:root{
+  --primary:#1a2a6c; --primary2:#b21f1f; --secondary:#11998e; --secondary2:#38ef7d;
+  --accent:#ff6e40; --accent2:#ffb800; --gold:#ffd700;
+  --panel-bg:rgba(255,255,255,.97);
+  --shadow-deep:0 18px 45px rgba(0,0,0,.35);
+}
+*{box-sizing:border-box;font-family:'Vazirmatn','Tahoma','Segoe UI',sans-serif}
+body{margin:0;padding:0;
+  background:linear-gradient(135deg,#1a2a6c 0%,#11998e 50%,#38ef7d 100%);
+  color:#333;min-height:100vh;position:relative;overflow-x:hidden}
+.bg-animated{position:fixed;top:-50%;left:-50%;width:200%;height:200%;z-index:-2;
+  background:radial-gradient(circle,rgba(255,215,0,.15) 0%,rgba(56,239,125,.08) 40%,transparent 70%);
+  animation:rotateBG 60s linear infinite}
+@keyframes rotateBG{0%{transform:rotate(0) scale(1)}50%{transform:rotate(180deg) scale(1.15)}100%{transform:rotate(360deg) scale(1)}}
+.stars-container{position:fixed;width:100%;height:100%;top:0;left:0;pointer-events:none;z-index:-1}
+.star{position:absolute;background:#fff;border-radius:50%;animation:twinkle 3s infinite ease-in-out;
+  box-shadow:0 0 6px rgba(255,255,255,.8)}
+@keyframes twinkle{0%,100%{opacity:.2;transform:scale(.8)}50%{opacity:1;transform:scale(1.4)}}
+.cloud{position:fixed;font-size:40px;opacity:.35;animation:floatCloud 40s linear infinite;pointer-events:none;z-index:-1}
+@keyframes floatCloud{0%{transform:translateX(-10vw)}100%{transform:translateX(110vw)}}
+.container{max-width:1050px;margin:0 auto;padding:20px}
+header{text-align:center;background:linear-gradient(135deg,#1a2a6c 0%,#b21f1f 50%,#fdbb2d 100%);
+  color:#fff;padding:26px 20px;border-radius:24px;margin-bottom:25px;
+  box-shadow:var(--shadow-deep);position:relative;overflow:hidden}
+header::before{content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;
+  background:radial-gradient(circle,rgba(255,255,255,.15) 0%,transparent 60%);
+  animation:rotateBG 40s linear infinite reverse}
+header > *{position:relative;z-index:1}
+h1{margin:5px 0;font-size:26px;text-shadow:0 3px 12px rgba(0,0,0,.4);letter-spacing:.5px}
+h2{margin:6px 0 0;color:#ffe27a;font-size:15px;font-weight:normal;text-shadow:0 2px 8px rgba(0,0,0,.3)}
+.audio-control-btn{position:absolute;top:15px;left:15px;background:rgba(255,255,255,.25);
+  border:1px solid rgba(255,255,255,.5);color:#fff;padding:7px 14px;border-radius:20px;
+  cursor:pointer;font-size:13px;backdrop-filter:blur(8px);transition:.3s;z-index:2}
+.audio-control-btn:hover{background:rgba(255,255,255,.4);transform:scale(1.05)}
+.card{background:var(--panel-bg);border-radius:24px;padding:28px;box-shadow:var(--shadow-deep);
+  margin-bottom:25px;backdrop-filter:blur(12px);animation:popUp .55s cubic-bezier(.2,.9,.3,1.2);
+  border:1px solid rgba(255,255,255,.6)}
+@keyframes popUp{from{transform:scale(.9);opacity:0}to{transform:scale(1);opacity:1}}
+.map-bar{height:12px;background:rgba(0,0,0,.25);border-radius:999px;overflow:hidden;
+  margin-bottom:18px;box-shadow:inset 0 2px 4px rgba(0,0,0,.3)}
+.map-bar>i{display:block;height:100%;width:0;
+  background:linear-gradient(90deg,#ffd700,#ff6e40,#38ef7d);border-radius:999px;
+  transition:width .8s cubic-bezier(.4,0,.2,1);box-shadow:0 0 12px rgba(255,215,0,.6);position:relative}
+.map-bar>i::after{content:'';position:absolute;top:0;left:0;right:0;bottom:0;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.5),transparent);
+  animation:shine 2s linear infinite}
+@keyframes shine{0%{transform:translateX(-100%)}100%{transform:translateX(100%)}}
+.map-box{position:relative;
+  background:linear-gradient(180deg,#87ceeb 0%,#5ee7df 25%,#48c9b0 60%,#1a8a7e 100%);
+  border-radius:28px;border:6px solid #ffd700;
+  box-shadow:0 20px 50px rgba(0,0,0,.5),inset 0 0 80px rgba(255,255,255,.2);
+  overflow:hidden;margin-bottom:18px}
+.map-box::before{content:'';position:absolute;inset:0;
+  background:radial-gradient(circle at 20% 30%,rgba(255,255,255,.3) 0,transparent 25%),
+    radial-gradient(circle at 80% 70%,rgba(255,255,255,.2) 0,transparent 30%);
+  pointer-events:none;z-index:1}
+.map-svg{display:block;width:100%;height:auto;position:relative;z-index:2}
+.dash{animation:dashm 2s linear infinite}
+@keyframes dashm{to{stroke-dashoffset:-30}}
+.pulse{animation:pls 1.4s ease-in-out infinite;transform-box:fill-box;transform-origin:center}
+@keyframes pls{50%{transform:scale(1.22)}}
+.glow-node{animation:glowNode 2s ease-in-out infinite}
+@keyframes glowNode{0%,100%{filter:drop-shadow(0 0 6px rgba(255,215,0,.8))}50%{filter:drop-shadow(0 0 20px rgba(255,215,0,1))}}
+.ship-sway{animation:sway 3s ease-in-out infinite;transform-box:fill-box;transform-origin:center}
+@keyframes sway{0%,100%{transform:rotate(-8deg) translateY(0)}50%{transform:rotate(8deg) translateY(-4px)}}
+.node{cursor:pointer}
+input[type="text"]{width:100%;padding:14px 16px;margin:8px 0 16px;
+  border:2px solid #e2e8f0;border-radius:14px;font-size:14px;transition:.25s;background:#f8fafc}
+input[type="text"]:focus{outline:none;border-color:var(--secondary);background:#fff;
+  box-shadow:0 0 0 4px rgba(17,153,142,.15)}
+.btn-primary{background:linear-gradient(135deg,#ff6e40,#ffb800);color:#fff;border:none;
+  padding:14px 25px;border-radius:14px;cursor:pointer;font-weight:800;font-size:16px;width:100%;
+  transition:.25s;box-shadow:0 6px 0 #cc4a1f,0 12px 24px rgba(255,110,64,.4)}
+.btn-primary:hover:not(:disabled){transform:translateY(-2px);box-shadow:0 8px 0 #cc4a1f,0 16px 30px rgba(255,110,64,.5)}
+.btn-primary:active:not(:disabled){transform:translateY(4px);box-shadow:0 2px 0 #cc4a1f,0 6px 14px rgba(255,110,64,.4)}
+.btn-primary:disabled{background:linear-gradient(135deg,#94a3b8,#cbd5e1);cursor:not-allowed;
+  box-shadow:0 6px 0 #64748b;transform:none}
+.landmark-box{display:flex;gap:20px;align-items:center;
+  background:linear-gradient(135deg,#fff9e6,#ffeab6);border-right:6px solid var(--accent);
+  padding:16px;border-radius:16px;margin-bottom:22px;font-size:14px;line-height:1.9;
+  box-shadow:0 6px 20px rgba(0,0,0,.08)}
+.landmark-img-large{width:220px;height:140px;object-fit:cover;border-radius:12px;
+  box-shadow:0 6px 16px rgba(0,0,0,.2);flex-shrink:0}
+.lesson-gate{position:relative;background:linear-gradient(135deg,#fff4d6 0%,#ffe4a8 50%,#ffd166 100%);
+  border:3px solid #e8a900;border-radius:20px;padding:22px;margin-bottom:22px;
+  box-shadow:0 8px 26px rgba(232,169,0,.3),inset 0 1px 0 rgba(255,255,255,.8)}
+.lesson-gate::before{content:'✨';position:absolute;top:-14px;right:20px;font-size:32px;
+  animation:spin 3s linear infinite;filter:drop-shadow(0 0 8px rgba(255,215,0,.8))}
+@keyframes spin{to{transform:rotate(360deg)}}
+.lesson-gate h4{margin:0 0 14px;color:#92400e;font-size:17px;display:flex;align-items:center;gap:8px;
+  background:linear-gradient(135deg,#a16207,#d97706);-webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;background-clip:text;font-weight:800;letter-spacing:.3px}
+.lesson-gate .lesson-content{background:#fff;border-radius:12px;padding:16px;line-height:2.1;
+  font-size:14px;color:#1e293b;margin-bottom:16px;box-shadow:inset 0 2px 6px rgba(0,0,0,.05);
+  border:1px solid #fde68a}
+.lesson-gate .lesson-content code, code{background:#fef3c7;padding:2px 8px;border-radius:6px;
+  direction:ltr;display:inline-block;color:#b45309;font-weight:700;font-family:'Courier New', monospace;}
+.lesson-gate .read-confirm{display:flex;align-items:center;gap:12px;background:#fff;
+  padding:14px 16px;border-radius:12px;cursor:pointer;border:2px dashed #e8a900;
+  transition:.25s;font-weight:700;color:#78350f;user-select:none}
+.lesson-gate .read-confirm:hover{background:#fffbeb;transform:scale(1.01);border-color:#b45309}
+.lesson-gate .read-confirm input{width:22px;height:22px;cursor:pointer;accent-color:#e8a900}
+.lesson-gate .continue-btn{margin-top:16px;background:linear-gradient(135deg,#11998e,#38ef7d);
+  color:#fff;border:none;padding:16px;border-radius:14px;width:100%;cursor:pointer;
+  font-weight:800;font-size:16px;transition:.25s;box-shadow:0 6px 0 #0d7a6e,0 12px 24px rgba(17,153,142,.4)}
+.lesson-gate .continue-btn:hover:not(:disabled){background:linear-gradient(135deg,#0d7a6e,#2ecc71);transform:translateY(-2px)}
+.lesson-gate .continue-btn:active:not(:disabled){transform:translateY(4px);box-shadow:0 2px 0 #0d7a6e}
+.lesson-gate .continue-btn:disabled{background:linear-gradient(135deg,#cbd5e1,#94a3b8);
+  box-shadow:0 6px 0 #64748b;cursor:not-allowed;color:#475569;transform:none}
+
+.question-text{font-weight:bold;font-size:16px;margin-bottom:16px;color:#1e3d59;
+  line-height:2;padding:14px 16px;background:linear-gradient(135deg,#eef5ff,#dbeafe);
+  border-radius:12px;border-right:4px solid #3b82f6}
+.question-text code{background:#fff;padding:2px 8px;border-radius:6px;direction:ltr;
+  display:inline-block;color:#1e40af;font-weight:700;border:1px solid #bfdbfe}
+.options-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.btn-option{background:#fff;border:2px solid #cbd5e1;padding:14px;border-radius:12px;
+  cursor:pointer;font-size:15px;transition:.2s;text-align:center;direction:ltr;
+  font-weight:700;position:relative;overflow:hidden;font-family:'Courier New', Tahoma, sans-serif;}
+.btn-option::before{content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;
+  background:linear-gradient(90deg,transparent,rgba(59,130,246,.1),transparent);transition:.5s}
+.btn-option:hover:not(:disabled)::before{left:100%}
+.btn-option:hover:not(:disabled){background:linear-gradient(135deg,#1e3d59,#3b82f6);color:#fff;
+  border-color:#1e3d59;transform:translateY(-2px);box-shadow:0 6px 16px rgba(30,61,89,.3)}
+.btn-option:disabled{cursor:not-allowed;opacity:.85}
+.btn-option.wrong-choice{background:linear-gradient(135deg,#fee2e2,#fecaca)!important;
+  border-color:#ef4444!important;color:#991b1b!important;opacity:1!important;animation:shakeWrong .5s}
+.btn-option.right-choice{background:linear-gradient(135deg,#d1fae5,#a7f3d0)!important;
+  border-color:#10b981!important;color:#065f46!important;opacity:1!important;
+  box-shadow:0 0 20px rgba(16,185,129,.4)!important}
+@keyframes shakeWrong{0%,100%{transform:translateX(0)}20%{transform:translateX(-8px)}
+  40%{transform:translateX(8px)}60%{transform:translateX(-5px)}80%{transform:translateX(5px)}}
+.feedback-box{padding:16px;border-radius:14px;margin-top:16px;display:none;
+  font-size:14px;animation:fadeIn .4s ease;line-height:2}
+@keyframes fadeIn{from{opacity:0;transform:translateY(-10px)}to{opacity:1;transform:none}}
+.feedback-box.correct{background:linear-gradient(135deg,#d1fae5,#a7f3d0);color:#065f46;
+  border:2px solid #10b981;box-shadow:0 4px 16px rgba(16,185,129,.2)}
+.feedback-box.incorrect{background:linear-gradient(135deg,#fee2e2,#fecaca);color:#991b1b;border:2px solid #ef4444}
+.feedback-box.hint{background:transparent;border:none;padding:0;margin-top:14px}
+.retry-banner{background:linear-gradient(135deg,#fef3c7,#fde68a,#fcd34d);border:2px dashed #d97706;
+  border-radius:16px;padding:18px 20px;margin-top:14px;font-size:14px;line-height:2.1;
+  color:#78350f;font-weight:700;animation:popIn .5s ease;box-shadow:0 6px 20px rgba(217,119,6,.3);
+  position:relative;overflow:hidden}
+.retry-banner::before{content:'';position:absolute;top:0;left:-50%;width:50%;height:100%;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.4),transparent);animation:shine 3s infinite}
+.retry-banner .big{font-size:18px;color:#b45309;display:block;margin-bottom:8px;
+  text-shadow:0 1px 3px rgba(255,255,255,.5)}
+@keyframes popIn{from{transform:scale(.85);opacity:0}to{transform:scale(1);opacity:1}}
+.chest-container{text-align:center;padding:24px}
+.chest-icon{font-size:90px;cursor:pointer;display:inline-block;transition:transform .3s;
+  user-select:none;filter:drop-shadow(0 10px 20px rgba(0,0,0,.3))}
+.chest-icon:hover{transform:scale(1.15) rotate(-5deg)}
+.chest-shake{animation:shake .6s infinite}
+@keyframes shake{0%{transform:rotate(0)}20%{transform:rotate(-12deg)}40%{transform:rotate(12deg)}
+  60%{transform:rotate(-12deg)}80%{transform:rotate(12deg)}100%{transform:rotate(0)}}
+.star-rating{font-size:34px;color:var(--gold);margin:12px 0;letter-spacing:6px;
+  direction:ltr;display:inline-block;text-shadow:0 0 12px rgba(255,215,0,.6)}
+footer{text-align:center;color:#f1f5f9;padding:20px 15px;font-size:13px;line-height:2;
+  background:rgba(0,0,0,.25);border-radius:14px;margin-top:20px;backdrop-filter:blur(8px)}
+footer b{color:#ffd700;font-weight:800;text-shadow:0 0 10px rgba(255,215,0,.5)}
+
+/* HUD */
+.hud-simple{
+  display:flex;flex-wrap:wrap;gap:12px;justify-content:center;align-items:center;
+  background:linear-gradient(135deg,rgba(255,255,255,.35),rgba(255,255,255,.15));
+  border:1px solid rgba(255,255,255,.55);border-radius:18px;
+  padding:10px 16px;margin-bottom:14px;backdrop-filter:blur(10px);
+  box-shadow:0 6px 20px rgba(0,0,0,.15);
+}
+.hud-chip{
+  display:flex;align-items:center;gap:8px;
+  background:rgba(0,0,0,.3);padding:8px 16px;border-radius:999px;
+  color:#fff;font-weight:800;font-size:15px;
+  text-shadow:0 1px 3px rgba(0,0,0,.5);
+  border:1px solid rgba(255,255,255,.3);
+}
+.hud-chip .hud-emoji{font-size:20px;line-height:1;
+  filter:drop-shadow(0 2px 4px rgba(0,0,0,.35));}
+.hud-chip .hud-num{
+  font-variant-numeric:tabular-nums;letter-spacing:.5px;
+  background:rgba(255,255,255,.18);padding:1px 10px;border-radius:999px;
+  font-size:14px;
+}
+
+/* ====== نشان آموزشی صفحه اول ====== */
+.grade-badge{
+  display:inline-block;
+  background:linear-gradient(135deg,#12d8fa,#165ce6);
+  color:#fff;
+  padding:6px 16px;
+  border-radius:20px;
+  font-weight:800;
+  font-size:15px;
+  box-shadow:0 4px 12px rgba(22,92,230,.3);
+  margin-bottom:15px;
+  letter-spacing:.5px;
+}
+
+/* ====== استایل اختصاصی کارنامه برای خروجی A4 افقی ====== */
+#pdfContent{
+  direction:rtl;
+  text-align:right;
+  background:#ffffff;
+  padding:30px 40px;
+  border-radius:16px;
+  border:3px solid #cbd5e1;
+  width:1050px;
+  margin:0 auto;
+  box-shadow:0 10px 25px rgba(0,0,0,.08);
+  font-family:'Vazirmatn','Tahoma',sans-serif;
+}
+.report-header{
+  display:flex;align-items:center;justify-content:space-between;gap:15px;margin-bottom:8px;
+}
+.report-logo{
+  width:90px;height:90px;flex-shrink:0;
+  border-radius:12px;object-fit:contain;
+  background:#fff;padding:4px;border:2px solid #f59e0b;
+}
+.report-titles{flex:1;text-align:center}
+.report-titles h2{
+  margin:0 0 6px;color:var(--primary);font-size:24px;font-weight:900;
+}
+.report-titles .sub{color:#64748b;font-size:14px;font-weight:bold}
+.report-sep{
+  height:4px;background:linear-gradient(90deg,#1a2a6c,#b21f1f,#ffd700,#38ef7d,#1a2a6c);
+  border-radius:999px;margin:12px 0 16px;
+}
+.report-info-grid{
+  display:grid;grid-template-columns: repeat(3, 1fr);gap:12px 18px;
+  font-size:14px;line-height:1.9;background:#f8fafc;padding:14px 20px;border-radius:12px;
+  border:1px solid #e2e8f0;margin-bottom:16px;
+}
+.report-info-grid p{margin:0}
+.report-info-grid strong{color:#1e3d59}
+.report-score-box{
+  background:linear-gradient(135deg,#fef3c7,#fde68a);
+  border:2px solid #f59e0b;border-radius:12px;
+  padding:12px 24px;margin:16px 0;
+  display:flex;justify-content:space-between;align-items:center;
+}
+.report-score-box .label{font-weight:800;color:#92400e;font-size:16px}
+.report-score-box .score{
+  font-size:26px;font-weight:900;color:#b45309;
+}
+.report-table{
+  width:100%;border-collapse:collapse;margin-top:12px;
+  font-size:13px;text-align:center;
+}
+.report-table thead{
+  background:linear-gradient(135deg,#1a2a6c,#b21f1f);
+  color:#fff;
+}
+.report-table th, .report-table td{
+  border:1px solid #cbd5e1;padding:10px 8px;
+  text-align:center;
+}
+.report-table th:nth-child(1){width:8%}
+.report-table th:nth-child(2){width:36%}
+.report-table th:nth-child(3){width:24%}
+.report-table th:nth-child(4){width:20%}
+.report-table th:nth-child(5){width:12%}
+.report-table tr:nth-child(even){background:#f8fafc}
+.report-sign{
+  display:flex;justify-content:space-between;margin-top:30px;
+  font-size:13px;color:#475569;padding-top:16px;
+  border-top:1px dashed #cbd5e1;
+}
+.report-sign .sig-box{text-align:center;flex:1}
+.report-sign .sig-line{width:140px;border-bottom:1px solid #94a3b8;margin:12px auto 4px;height:20px}
+.report-footer-note{
+  text-align:center;margin-top:20px;font-size:12px;color:#94a3b8;
+}
+
+.send-btn-group{
+  display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:15px;
+}
+.btn-send{
+  background:linear-gradient(135deg,#25D366,#128C7E);color:#fff;border:none;
+  padding:12px 20px;border-radius:12px;cursor:pointer;font-weight:bold;font-size:14px;
+  transition:.25s;box-shadow:0 4px 12px rgba(37,211,102,.3);display:inline-flex;align-items:center;gap:8px;
+}
+.btn-send:hover{transform:translateY(-2px);box-shadow:0 6px 16px rgba(37,211,102,.4)}
+
+@media(max-width:600px){
+  .landmark-box{flex-direction:column;text-align:center}
+  .landmark-img-large{width:100%;height:160px}
+  .options-grid{grid-template-columns:1fr}
+  h1{font-size:20px} h2{font-size:13px}
+  .container{padding:14px} .card{padding:20px}
+  .hud-chip{font-size:13px;padding:6px 12px}
+  .report-info-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<div class="bg-animated"></div>
+<div class="stars-container" id="starsContainer"></div>
+<div class="cloud" style="top:10%;animation-delay:0s">☁️</div>
+<div class="cloud" style="top:40%;animation-delay:-15s;font-size:55px">☁️</div>
+<div class="cloud" style="top:70%;animation-delay:-30s;font-size:50px">☁️</div>
+
+<div class="container">
+  <header>
+    <button class="audio-control-btn" id="audioToggleBtn" onclick="toggleBackgroundMusic()">🎵 موسیقی: فعال</button>
+    <h1>🗺️ سفر در مسیر جبر و معادله</h1>
+    <h2>عبور از ۶ دروازهٔ دانش تا فتح گنجینهٔ خوارزمی</h2>
+  </header>
+
+  <!-- صفحه اول: ورود -->
+  <div id="startScreen" class="card">
+    <div style="text-align:center;">
+      <span class="grade-badge">📚 ریاضی هشتم - فصل ۴ (جبر و معادله)</span>
+    </div>
+    <h3 style="color:var(--primary);margin-top:0;font-size:20px">🚪 ورود به ماجراجویی</h3>
+    <p style="font-size:14px;line-height:2;color:#475569">
+      در کتابخانهٔ شهر، <b>کلید طلایی گنجینهٔ خوارزمی</b> گم شده است.
+      تنها راه پیدا کردنش، عبور از <b>۶ دروازهٔ دانش</b> است.
+      در هر دروازه ابتدا <b>گنجینهٔ دانش</b> را می‌خوانی، بعد <b>معمای جبری</b> را حل می‌کنی
+      و یک <b>قطعهٔ کلید</b> به دست می‌آوری. در پایان، ۶ قطعه را کنار هم بچین تا
+      درِ <b>تالار خوارزمی</b> باز شود! 🔑
+    </p>
+    <label><strong>نام و نام خانوادگی دانش‌آموز:</strong></label>
+    <input type="text" id="studentName" placeholder="مثال: علی محمدی">
+    <label><strong>نام کلاس:</strong></label>
+    <input type="text" id="className" placeholder="مثال: هشتم ۲">
+    <label><strong>نام مدرسه:</strong></label>
+    <input type="text" id="schoolName" placeholder="مثال: مدرسهٔ متوسطهٔ اول ساری">
+    <label><strong>نام دبیر مربوطه:</strong></label>
+    <input type="text" id="teacherName" placeholder="مثال: استاد میرزاخانی">
+    <button class="btn-primary" onclick="startDashboard()">🚀 شروع ماجراجویی و ورود به نقشه</button>
+  </div>
+
+  <!-- صفحه دوم: نقشه بازی -->
+  <div id="dashboardScreen" class="card" style="display:none">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:15px;flex-wrap:wrap;gap:10px">
+      <h3 style="margin:0;color:var(--primary);font-size:17px">🗺️ نقشهٔ گنج — مسیر قطعه‌های کلید</h3>
+      <button id="btnTreasure" class="btn-primary" style="width:auto;padding:9px 16px;font-size:13px;background:linear-gradient(135deg,#ffd700,#ffb800);color:#3b2500" onclick="openTreasureChest()" disabled>👑 صندوق خوارزمی (قفل)</button>
+    </div>
+
+    <div class="hud-simple">
+      <div class="hud-chip">
+        <span class="hud-emoji">⭐</span>
+        <span>ستاره‌ها</span>
+        <span class="hud-num" id="hudStarsNum">۰ از ۲۰</span>
+      </div>
+      <div class="hud-chip">
+        <span class="hud-emoji">🔑</span>
+        <span>کلیدها</span>
+        <span class="hud-num" id="hudKeysNum">۰ از ۶</span>
+      </div>
+    </div>
+
+    <div class="map-bar"><i id="mapProgressBar"></i></div>
+    <div class="map-box" id="mapBox"></div>
+    <p style="font-size:13px;color:#fff;text-align:center;background:rgba(0,0,0,.35);padding:10px 14px;border-radius:12px;margin:0;backdrop-filter:blur(8px)">
+      🧭 روی دروازهٔ درخشان بزن تا وارد شوی. ابتدا گنجینهٔ دانش، بعد معما!
+    </p>
+  </div>
+
+  <!-- صفحه سوم: مراحل بازی -->
+  <div id="stageScreen" class="card" style="display:none">
+    <div id="stageActiveContent"></div>
+  </div>
+
+  <!-- صفحه چهارم: صندوق گنج -->
+  <div id="treasureScreen" class="card" style="display:none">
+    <div class="chest-container">
+      <h2 style="color:var(--primary)">🎁 صندوق دانش خوارزمی</h2>
+      <p style="font-size:14px;line-height:2">
+        تو از تمام دروازه‌های دانش عبور کردی و ۶ قطعهٔ کلید را جمع کردی!
+        برای فتح گنجینه روی صندوق کلیک کن:
+      </p>
+      <div id="chestIcon" class="chest-icon" onclick="unlockChest()">📦</div>
+      <div id="chestMessage" style="margin-top:18px;font-weight:bold;font-size:17px;color:var(--secondary);line-height:2"></div>
+      <br>
+      <button id="btnGoToReport" class="btn-primary" style="display:none;margin-top:15px" onclick="showFinalReport()">🎓 مشاهدهٔ کارنامه و صدور گواهینامه PDF</button>
+    </div>
+  </div>
+
+  <!-- صفحه پنجم: کارنامه افقی رسمی -->
+  <div id="reportScreen" class="card" style="display:none">
+    <!-- کادر کارنامه برای ساخت عکس و PDF افقی A4 -->
+    <div id="pdfContent">
+      <div class="report-header">
+        <img id="reportLogo" class="report-logo" alt="لوگو" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'><rect x='6' y='6' width='188' height='188' rx='34' fill='%231a2a6c'/><circle cx='100' cy='100' r='80' fill='none' stroke='%23ffd700' stroke-width='6'/><path d='M55 70 Q100 50 145 70 L145 130 Q100 110 55 130 Z' fill='%23ffffff'/><text x='100' y='118' font-family='Arial,sans-serif' font-size='34' font-weight='900' text-anchor='middle' fill='%231a2a6c'>x+y</text></svg>">
+        <div class="report-titles">
+          <h2>🎓 کارنامه و گزارش نهایی ارزیابی تعاملی</h2>
+          <div class="sub">سفر در مسیر جبر و معادله (ریاضی هشتم - فصل ۴) — گنجینهٔ خوارزمی</div>
+        </div>
+        <div style="width:90px"></div>
+      </div>
+      <div class="report-sep"></div>
+
+      <div class="report-info-grid">
+        <p><strong>دانش‌آموز:</strong> <span id="repName"></span></p>
+        <p><strong>کلاس:</strong> <span id="repClass"></span></p>
+        <p><strong>مدرسه:</strong> <span id="repSchool"></span></p>
+        <p><strong>دبیر مربوطه:</strong> <span id="repTeacher"></span></p>
+        <p><strong>تاریخ آزمون:</strong> <span id="repDate"></span></p>
+        <p><strong>مدت زمان آزمون:</strong> <span id="repDuration" style="color:var(--secondary);font-weight:bold"></span></p>
+      </div>
+
+      <div class="report-score-box">
+        <span class="label">🏆 نمرهٔ نهایی ارزشیابی (از ۲۰):</span>
+        <span class="score"><span id="repScore"></span> از ۲۰</span>
+      </div>
+
+      <h3 style="color:var(--primary);margin:14px 0 8px;font-size:15px">📋 جدول ارزیابی عملکرد تفکیکی در مراحل شش‌گانه:</h3>
+      <div id="repTable"></div>
+
+      <div class="report-sign">
+        <div class="sig-box"><div>امضاء و تأیید دبیر محترم</div><div class="sig-line"></div></div>
+        <div class="sig-box"><div>مهر و تأیید مدیریت مدرسه</div><div class="sig-line"></div></div>
+        <div class="sig-box"><div>تاریخ صدور رسمی</div><div class="sig-line"></div></div>
+      </div>
+
+      <div class="report-footer-note">
+        این کارنامه به‌صورت رسمی و خودکار توسط سامانهٔ هوشمند «سفر در مسیر جبر و معادله» صادر گردیده است.
+      </div>
+    </div>
+
+    <br>
+    <!-- دکمه‌های دانلود کارنامه و ارسال به دبیر -->
+    <button class="btn-primary" onclick="generatePDF()">📄 دانلود فایل کارنامه افقی (PDF استاندارد A4)</button>
+    
+    <div class="send-btn-group">
+      <button class="btn-send" onclick="sendReportToTeacher()">
+        📲 ارسال گزارش متنی به دبیر (واتساپ / پیام‌رسان‌ها)
+      </button>
+    </div>
+
+    <br><br>
+    <button class="btn-primary" style="background:linear-gradient(135deg,#64748b,#94a3b8);box-shadow:0 6px 0 #475569" onclick="backToDashboard()">بازگشت به نقشهٔ مراحل</button>
+  </div>
+
+  <footer>
+    طراح: <b>سیده زهرا عبادی</b> ـ مدرس کشوری تیمز - گروه ریاضی متوسطه اول استان مازندران
+  </footer>
+</div>
+
+<script>
+/* ============================================================
+   ۱) تنظیمات اولیه و افکت‌های صوتی
+   ============================================================ */
+// ستاره‌های پس‌زمینه
+const starsContainer = document.getElementById('starsContainer');
+for (let i = 0; i < 60; i++) {
+  const s = document.createElement('div');
+  s.className = 'star';
+  const size = Math.random() * 3 + 1.5;
+  s.style.width = s.style.height = size + 'px';
+  s.style.top = Math.random() * 100 + '%';
+  s.style.left = Math.random() * 100 + '%';
+  s.style.animationDelay = Math.random() * 3 + 's';
+  s.style.animationDuration = (2 + Math.random() * 3) + 's';
+  starsContainer.appendChild(s);
+}
+
+// سیستم پخش صوتی متناسب با تعامل
+let AC = null, musicBus, sfxBus, nbuf, timer = null, stepN = 0, nextT = 0;
+function initAudio() {
+  if (AC) return;
+  const Ctx = window.AudioContext || window.webkitAudioContext;
+  if (!Ctx) return;
+  AC = new Ctx();
+  musicBus = AC.createGain(); musicBus.gain.value = .35; musicBus.connect(AC.destination);
+  sfxBus = AC.createGain(); sfxBus.gain.value = .6; sfxBus.connect(AC.destination);
+  nbuf = AC.createBuffer(1, AC.sampleRate * .5, AC.sampleRate);
+  const d = nbuf.getChannelData(0);
+  for (let i = 0; i < d.length; i++) d[i] = Math.random() * 2 - 1;
+}
+function tone(f, t, d, type, v, dest) {
+  if (!AC) return;
+  const o = AC.createOscillator(), g = AC.createGain();
+  o.type = type; o.frequency.setValueAtTime(f, t);
+  g.gain.setValueAtTime(.0001, t);
+  g.gain.exponentialRampToValueAtTime(v, t + .01);
+  g.gain.exponentialRampToValueAtTime(.0001, t + d);
+  o.connect(g); g.connect(dest || musicBus);
+  o.start(t); o.stop(t + d + .05);
+}
+function noise(t, d, v, hp) {
+  if (!AC) return;
+  const s = AC.createBufferSource(); s.buffer = nbuf;
+  const f = AC.createBiquadFilter(); f.type = 'highpass'; f.frequency.value = hp;
+  const g = AC.createGain();
+  g.gain.setValueAtTime(v, t);
+  g.gain.exponentialRampToValueAtTime(.0001, t + d);
+  s.connect(f); f.connect(g); g.connect(musicBus);
+  s.start(t); s.stop(t + d + .02);
+}
+function kick(t) {
+  if (!AC) return;
+  const o = AC.createOscillator(), g = AC.createGain();
+  o.frequency.setValueAtTime(150, t);
+  o.frequency.exponentialRampToValueAtTime(40, t + .12);
+  g.gain.setValueAtTime(.7, t);
+  g.gain.exponentialRampToValueAtTime(.001, t + .18);
+  o.connect(g); g.connect(musicBus);
+  o.start(t); o.stop(t + .2);
+}
+const BPM = 148, STEP = 60 / BPM / 2;
+const CH = [[220,261.63,329.63],[174.61,220,261.63],[196,246.94,293.66],[164.81,207.65,246.94]];
+const BASS = [110, 87.31, 98, 82.41];
+const LEAD = [
+  [659.25,0,523.25,0,587.33,659.25,0,523.25],
+  [698.46,0,523.25,0,587.33,523.25,0,440],
+  [587.33,0,493.88,0,587.33,783.99,0,659.25],
+  [659.25,622.25,659.25,0,830.61,0,987.77,0]
+];
+const ARP = [0,1,2,1,2,1,0,1];
+function schedStep(t) {
+  const bar = Math.floor(stepN / 8) % 4;
+  const p = stepN % 8;
+  tone(CH[bar][ARP[p]] * 2, t, STEP * .9, 'triangle', .16);
+  if (p % 2 === 0) { kick(t); tone(BASS[bar], t, STEP * 1.7, 'sawtooth', .16); }
+  if (p % 2 === 1) noise(t, .05, .12, 7000);
+  if (p === 2 || p === 6) noise(t, .14, .22, 1800);
+  const l = LEAD[bar][p];
+  if (l) tone(l, t, STEP * 1.5, 'square', .07);
+  stepN++;
+}
+function sched() { if (!AC) return; while (nextT < AC.currentTime + .15) { schedStep(nextT); nextT += STEP; } }
+function startMusic() {
+  initAudio(); if (!AC) return;
+  if (AC.state === 'suspended') AC.resume();
+  if (!timer) { nextT = AC.currentTime + .05; timer = setInterval(sched, 25); }
+  const btn = document.getElementById('audioToggleBtn');
+  if (btn) btn.innerText = '🎵 موسیقی: فعال';
+}
+function stopMusic() {
+  clearInterval(timer); timer = null;
+  const btn = document.getElementById('audioToggleBtn');
+  if (btn) btn.innerText = '🔇 موسیقی: خاموش';
+}
+function toggleBackgroundMusic() { if (timer) stopMusic(); else startMusic(); }
+let musicAutoStarted = false;
+function autoStartMusicOnce() {
+  if (musicAutoStarted) return;
+  musicAutoStarted = true;
+  startMusic();
+  document.removeEventListener('pointerdown', autoStartMusicOnce);
+  document.removeEventListener('keydown', autoStartMusicOnce);
+  document.removeEventListener('touchstart', autoStartMusicOnce);
+}
+document.addEventListener('pointerdown', autoStartMusicOnce);
+document.addEventListener('keydown', autoStartMusicOnce);
+document.addEventListener('touchstart', autoStartMusicOnce, { passive: true });
+
+function sfx(type) {
+  initAudio(); if (!AC) return;
+  if (AC.state === 'suspended') AC.resume();
+  const t = AC.currentTime + .02, D = sfxBus;
+  if (type === 'correct') {
+    [523.25, 659.25, 783.99, 1046.5].forEach((f, i) => tone(f, t + i * .08, .18, 'triangle', .3, D));
+    if (window.confetti) confetti({ particleCount: 60, spread: 70, origin: { y: .7 },
+      colors: ['#ffd700', '#ff6e40', '#38ef7d', '#3b82f6'] });
+  } else if (type === 'wrong') {
+    tone(196, t, .22, 'sawtooth', .22, D);
+    tone(147, t + .18, .35, 'sawtooth', .22, D);
+  } else if (type === 'hint') {
+    tone(392, t, .12, 'sine', .2, D);
+    tone(349.23, t + .12, .18, 'sine', .2, D);
+  } else if (type === 'fanfare') {
+    [392, 523.25, 659.25, 784, 1046.5, 1318.5, 1568].forEach((f, i) => {
+      tone(f, t + i * .13, .4, 'triangle', .3, D);
+      tone(f / 2, t + i * .13, .4, 'square', .1, D);
+    });
+    if (window.confetti) confetti({ particleCount: 180, spread: 120, origin: { y: .5 },
+      colors: ['#ffd700', '#ff6e40', '#38ef7d', '#3b82f6', '#a855f7'] });
+  }
+}
+
+/* ============================================================
+   ۲) متغیرهای اصلی بازی و داده‌های آموزشی
+   ============================================================ */
+const fa = n => String(n).replace(/\d/g, d => '۰۱۲۳۴۵۶۷۸۹'[d]);
+function shuffle(arr) {
+  const a = arr.slice();
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+let studentData = { name: '', className: '', school: '', teacher: '' };
+let stageStars = [0, 0, 0, 0, 0, 0];
+let stageCompleted = [false, false, false, false, false, false];
+let currentStageIndex = 0;
+let currentQuestionIndex = 0;
+let currentStageCorrectAnswers = 0;
+let currentQuestions = [];
+let currentAttempt = 1;
+let currentChosenIdx = null;
+let gameStartTime = null;
+let gameEndTime = null;
+let chestUnlocked = false;
+
+const TOTAL_STAGES = 6;
+const QUESTIONS_PER_STAGE = 3;
+
+const STAGES = [
+  {
+    title: 'دروازهٔ ۱: برج ساعت ساری',
+    subtitle: 'عبارت‌های جبری',
+    icon: '🕰️',
+    img: 'https://abrehamrahi.ir/o/public/2ID6dY3L/',
+    landmark: 'برج ساعت ساری از سال ۱۳۰۹ با زنگ‌هایش نظم زمان را فریاد می‌زند. هر زنگ، یک جملهٔ متشابه در عبارت بزرگ جبر است.',
+    badge: '🏅 معمار عبارت‌ها',
+    keyPiece: '🔑 قطعهٔ ۱: متغیر x',
+    isSimilarStage: true,
+    maxStars: 4,
+    lesson: `<b>درسنامه: عبارت‌های جبری و جمله‌های متشابه</b><br>
+      عبارت جبری ترکیبی از <b>عدد، متغیر و عمل‌ها</b> است. مثلاً <code>3x + 4y − 2x</code>.<br>
+      <b>جمله‌های متشابه</b> جمله‌هایی هستند که متغیر و توان یکسان دارند. فقط این جمله‌ها را می‌توان با هم جمع یا تفریق کرد.<br>
+      ✔️ <code>3x</code> و <code>−5x</code> متشابه‌اند ⇒ <code>3x − 5x = −2x</code><br>
+      ✔️ <code>2a²</code> و <code>6a²</code> متشابه‌اند ⇒ <code>2a² + 6a² = 8a²</code>`,
+    questionBank: [
+      { q: 'قرینهٔ عبارت <code>2a − 3b + 1</code> کدام است؟', options: ['−2a + 3b − 1', '−2a − 3b + 1', '2a + 3b − 1', '−2a + 3b + 1'], ans: 0, exp: 'علامت همهٔ جمله‌ها قرینه می‌شود.' },
+      { q: 'ساده شدهٔ عبارت <code>3x + 4y − x + 2y</code> کدام است؟', options: ['2x + 6y', '4x + 6y', '2x + 2y', '5xy'], ans: 0, exp: '3x − x = 2x و 4y + 2y = 6y ⇒ 2x + 6y' },
+      { q: 'کدام جفت جمله متشابه هستند؟', options: ['3x²y  ,  3xy²', '−2a , 7a', '4x  ,  4y', '5a²  ,  5a³'], ans: 1, exp: '−2a  ,  7a هر دو متغیر a با توان ۱ دارند.' }
+    ]
+  },
+  {
+    title: 'دروازهٔ ۲: خانهٔ تاریخی کلبادی',
+    subtitle: 'مقدار عددی',
+    icon: '🏯',
+    img: 'https://abrehamrahi.ir/o/public/hv67JXuN/',
+    landmark: 'پنجره‌های ارسی خانهٔ کلبادی، نور را مثل جای‌گذاری مقدار در عبارت جبری می‌شکنند.',
+    badge: '🏅 کاوشگر مقادیر',
+    keyPiece: '🔑 قطعهٔ ۲: مقدار عددی',
+    maxStars: 3,
+    lesson: `<b>درسنامه: مقدار عددی عبارت</b><br>
+      برای محاسبهٔ مقدار، به‌جای متغیرها عدد داده‌شده را بگذار و <b>اولویت عمل‌ها</b> را رعایت کن:<br>
+      <b>مثال:</b> اگر <code>x = −2</code> باشد، <code>x² − 3x + 1</code> = (−2)² − 3(−2) + 1 = 4 + 6 + 1 = <b>11</b>`,
+    questionBank: [
+      { q: 'اگر <code>x = −2</code> باشد، حاصل <code>x² − 3x + 1</code> کدام است؟', options: ['11', '−1', '3', '15'], ans: 0, exp: '(−2)² − 3(−2) + 1 = 4 + 6 + 1 = 11' },
+      { q: 'اگر <code>a = 3</code> و <code>b = −1</code> باشد، مقدار <code>(2a − b) ÷ (a + b)</code> کدام است؟', options: ['3.5', '2.5', '7', '−3.5'], ans: 0, exp: '(6 + 1) ÷ (3 − 1) = 7 ÷ 2 = 3.5' },
+      { q: 'به ازای <code>a = −1</code>، حاصل <code>a³ − a²</code> کدام است؟', options: ['−2', '0', '2', '−1'], ans: 0, exp: '(−1)³ − (−1)² = −1 − 1 = −2' }
+    ]
+  },
+  {
+    title: 'دروازهٔ ۳: خانه فاضلی',
+    subtitle: 'تجزیه و فاکتورگیری',
+    icon: '🏛️',
+    img: 'https://abrehamrahi.ir/o/public/I9s6N0bC/',
+    landmark: 'کاشی‌کاری‌های منظم خانه فاضلی، مثل فاکتورگیری، یک عبارت بزرگ را به ضرب چند عبارت کوچک تبدیل می‌کنند.',
+    badge: '🏅 استاد تجزیه',
+    keyPiece: '🔑 قطعهٔ ۳: فاکتور مشترک',
+    isFactorStage: true,
+    maxStars: 4,
+    lesson: `<b>درسنامه: تجزیه (فاکتورگیری)</b><br>
+      تجزیه یعنی نوشتن عبارت به شکل <b>ضرب چند عبارت</b>. اصلی‌ترین روش، فاکتورگیری با <b>ب.م.م</b> ضرایب و حروف است.<br>
+      <b>مثال:</b> <code>6x² + 9x = 3x(2x + 3)</code>`,
+    questionBank: [
+      { q: 'تجزیه شدهٔ <code>6x² + 9x</code> کدام است؟', options: ['3x(2x + 3)', '3(2x² + 3x)', 'x(6x + 9)', '9x(x + 1)'], ans: 0, exp: 'ب.م.م = 3x ⇒ 3x(2x + 3)' },
+      { q: 'تجزیهٔ <code>4a²b − 8ab²</code> کدام است؟', options: ['4ab(a − 2b)', '2ab(2a − 4b)', '4a(ab − 2b²)', '8ab(a − b)'], ans: 0, exp: 'فاکتورگیری 4ab از هر دو جمله.' },
+      { q: 'حاصل تجزیهٔ <code>x(a + b) + y(a + b)</code> کدام است؟', options: ['(a + b)(x + y)', '(x + a)(y + b)', 'xy(a + b)', '(a − b)(x − y)'], ans: 0, exp: 'عبارت (a + b) فاکتور مشترک است.' }
+    ]
+  },
+  {
+    title: 'دروازهٔ ۴: مسجد جامع شاه عباسی فرح‌آباد',
+    subtitle: 'حل معادله',
+    icon: '🕌',
+    img: 'https://abrehamrahi.ir/o/public/6bdkd5LG/',
+    landmark: 'گنبد مسجد جامع، تعادل و برابری دو طرف معادله را به تصویر می‌کشد.',
+    badge: '🏅 حل‌کنندهٔ معادلات',
+    keyPiece: '🔑 قطعهٔ ۴: مجهول x',
+    maxStars: 3,
+    lesson: `<b>درسنامه: حل معادله</b><br>
+      در معادله، <b>مجهول‌ها را یک طرف و معلوم‌ها را طرف دیگر</b> می‌بریم (با تغییر علامت).<br>
+      <b>مثال:</b> <code>3x − 5 = x + 7</code> ⇒ 2x = 12 ⇒ <b>x = 6</b>`,
+    questionBank: [
+      { q: 'پاسخ معادله <code>3x − 5 = x + 7</code> کدام است؟', options: ['x = 6', 'x = 3', 'x = 12', 'x = 2'], ans: 0, exp: '2x = 12 ⇒ x = 6' },
+      { q: 'پاسخ معادلهٔ کسری <code>x/2 + x/3 = 5</code> کدام است؟', options: ['x = 6', 'x = 30', 'x = 5', 'x = 10'], ans: 0, exp: 'ضرب در ۶: 3x + 2x = 30 ⇒ 5x = 30 ⇒ x = 6' },
+      { q: 'پاسخ معادله <code>(2x − 1) ÷ 3 = 3</code> کدام است؟', options: ['x = 5', 'x = 4', 'x = 10', 'x = 3'], ans: 0, exp: '2x − 1 = 9 ⇒ 2x = 10 ⇒ x = 5' }
+    ]
+  },
+  {
+    title: 'دروازهٔ ۵: برج رسکت',
+    subtitle: 'مسائل ترکیبی',
+    icon: '🗼',
+    img: 'https://abrehamrahi.ir/o/public/OPSaTxUk/',
+    landmark: 'برج رسکت بر فراز کوه‌ها، نمادی از استواری دانش و محاسبات دقیق است.',
+    badge: '🏅 قهرمان برج رسکت',
+    keyPiece: '🔑 قطعهٔ ۵: معادلهٔ مسئله',
+    maxStars: 3,
+    lesson: `<b>درسنامه: از مسئله تا معادله</b><br>
+      متن مسئله را به زبان ریاضی ترجمه کن:<br>
+      • «از ۵ برابر عددی ۴ واحد کم کردیم، حاصل ۱۶ شد» ⇒ <code>5x − 4 = 16</code> ⇒ <b>x = 4</b>`,
+    questionBank: [
+      { q: 'محیط مستطیلی ۳۰ است. اگر طول ۳ واحد از عرض بیشتر باشد، عرض کدام است؟', options: ['6', '9', '5', '7'], ans: 0, exp: '2(x + x + 3) = 30 ⇒ 4x + 6 = 30 ⇒ x = 6' },
+      { q: 'مجموع سه عدد متوالی ۴۵ است. عدد کوچک‌تر کدام است؟', options: ['14', '15', '16', '13'], ans: 0, exp: 'x + (x+1) + (x+2) = 45 ⇒ 3x = 42 ⇒ x = 14' },
+      { q: 'از ۵ برابر عددی ۴ واحد کم کردیم، حاصل ۱۶ شد. آن عدد کدام است؟', options: ['4', '5', '3', '6'], ans: 0, exp: '5x − 4 = 16 ⇒ 5x = 20 ⇒ x = 4' }
+    ]
+  },
+  {
+    title: 'دروازهٔ ۶: آستانهٔ تالار خوارزمی',
+    subtitle: 'آشنایی با خوارزمی',
+    icon: '👑',
+    img: 'https://abrehamrahi.ir/o/public/iYxwH5vf/',
+    landmark: 'اینجا دروازهٔ تالار خوارزمی است. تنها یک چیز مانده: شناختن مردی که جبر را به جهان هدیه داد.',
+    badge: '🏅 شاگرد ارشد خوارزمی',
+    keyPiece: '🔑 قطعهٔ ۶: کلید طلایی',
+    isInfoStage: true,
+    maxStars: 3,
+    lesson: '',
+    infoText: `<b>محمد بن موسی خوارزمی</b>، دانشمند برجستهٔ ایرانی قرن سوم هجری، «پدر علم جبر» است.<br>
+      واژهٔ <i>Algebra</i> در زبان‌های اروپایی از کتاب معروف او <b>«الجبر و المقابلة»</b> اقتباس شده است.<br><br>
+      <b>تبریک! تو اکنون ۶ قطعهٔ کلید را در دست داری. 🎉</b>`,
+    questionBank: []
+  }
+];
+
+const NODES = [
+  { x: 85,  y: 610 }, { x: 300, y: 515 }, { x: 95,  y: 420 },
+  { x: 300, y: 325 }, { x: 95,  y: 230 }, { x: 300, y: 135 }
+];
+const CHEST_NODE = { x: 200, y: 55 };
+
+/* ============================================================
+   ۳) مدیریت جریان بازی و نقشه
+   ============================================================ */
+function startDashboard() {
+  studentData.name = document.getElementById('studentName').value.trim() || 'دانش‌آموز';
+  studentData.className = document.getElementById('className').value.trim() || 'هشتم';
+  studentData.school = document.getElementById('schoolName').value.trim() || 'متوسطه اول';
+  studentData.teacher = document.getElementById('teacherName').value.trim() || 'استاد ریاضی';
+  gameStartTime = new Date();
+  document.getElementById('startScreen').style.display = 'none';
+  document.getElementById('dashboardScreen').style.display = 'block';
+  renderTreasureMap();
+}
+
+function totalMaxStars() { return STAGES.reduce((a, s) => a + (s.maxStars || 3), 0); }
+
+function renderHudSimple() {
+  const totalMax = totalMaxStars();
+  const totalStars = stageStars.reduce((a, b) => a + b, 0);
+  const done = stageCompleted.filter(Boolean).length;
+  document.getElementById('hudStarsNum').textContent = fa(totalStars) + ' از ' + fa(totalMax);
+  document.getElementById('hudKeysNum').textContent = fa(done) + ' از ' + fa(TOTAL_STAGES);
+}
+
+function renderTreasureMap() {
+  const box = document.getElementById('mapBox');
+  const done = stageCompleted.filter(Boolean).length;
+
+  let d = `M${NODES[0].x} ${NODES[0].y}`;
+  const pts = [...NODES.slice(1), CHEST_NODE];
+  pts.forEach((p, i) => {
+    const prev = i === 0 ? NODES[0] : pts[i - 1];
+    const ym = (prev.y + p.y) / 2;
+    d += ` C ${prev.x} ${ym}, ${p.x} ${ym}, ${p.x} ${p.y}`;
+  });
+
+  let svg = `<svg viewBox="0 0 400 680" xmlns="http://www.w3.org/2000/svg" class="map-svg">
+    <path d="${d}" fill="none" stroke="#fff" stroke-width="8" stroke-opacity=".4" stroke-linecap="round"/>
+    <path d="${d}" fill="none" stroke="#ffd700" stroke-width="4" stroke-dasharray="12 10" stroke-linecap="round" class="dash"/>`;
+
+  NODES.forEach((p, i) => {
+    const isDone = i < done;
+    const isCur = i === done;
+    const locked = i > done;
+    const fill = isDone ? '#11998e' : isCur ? '#ffd700' : '#94a3b8';
+    const stroke = isDone ? '#38ef7d' : isCur ? '#ff6e40' : '#64748b';
+    svg += `
+      <g class="${isCur ? 'node glow-node' : ''}" ${isCur ? `onclick="openStage(${i})"` : ''}>
+        <ellipse cx="${p.x}" cy="${p.y + 30}" rx="50" ry="17" fill="#ffd54a"/>
+        <text x="${p.x + 48}" y="${p.y + 20}" font-size="28" text-anchor="middle">${STAGES[i].icon}</text>
+        <g class="${isCur ? 'pulse' : ''}">
+          <circle cx="${p.x}" cy="${p.y}" r="28" fill="${fill}" stroke="${stroke}" stroke-width="4"/>
+          <text x="${p.x}" y="${p.y + 9}" font-size="24" font-weight="900" text-anchor="middle" fill="${locked ? '#fff' : '#3b2500'}">${locked ? '🔒' : fa(i + 1)}</text>
+        </g>
+      </g>`;
+  });
+
+  const allDone = done >= TOTAL_STAGES;
+  svg += `
+    <g ${allDone ? `onclick="openTreasureChest()" class="node glow-node"` : ''} opacity="${allDone ? 1 : .55}">
+      <text x="${CHEST_NODE.x}" y="${CHEST_NODE.y + 14}" font-size="56" text-anchor="middle">🎁</text>
+    </g></svg>`;
+  box.innerHTML = svg;
+
+  document.getElementById('mapProgressBar').style.width = (done / TOTAL_STAGES * 100) + '%';
+  renderHudSimple();
+
+  const btn = document.getElementById('btnTreasure');
+  if (allDone) {
+    btn.disabled = false;
+    btn.innerText = '👑 صندوق خوارزمی (باز شد!)';
+  } else {
+    btn.disabled = true;
+    btn.innerText = '👑 صندوق خوارزمی (قفل)';
+  }
+}
+
+/* ============================================================
+   ۴) ورود به مرحله و نمایش درسنامه + تصویر
+   ============================================================ */
+function openStage(index) {
+  if (index > 0 && !stageCompleted[index - 1]) { sfx('wrong'); return; }
+  currentStageIndex = index;
+  currentQuestionIndex = 0;
+  currentStageCorrectAnswers = 0;
+  currentAttempt = 1;
+  currentChosenIdx = null;
+  currentQuestions = shuffle(STAGES[index].questionBank).slice(0, QUESTIONS_PER_STAGE);
+  document.getElementById('dashboardScreen').style.display = 'none';
+  document.getElementById('stageScreen').style.display = 'block';
+  renderLessonGate();
+}
+
+function renderLessonGate() {
+  const st = STAGES[currentStageIndex];
+  let html = `
+    <button class="btn-primary" style="width:auto;padding:8px 16px;font-size:13px;background:linear-gradient(135deg,#64748b,#94a3b8);box-shadow:0 4px 0 #475569;margin-bottom:16px" onclick="backToDashboard()">⬅️ بازگشت به نقشه</button>
+    <h2 style="color:var(--primary);margin-bottom:14px;font-size:20px">${st.title}</h2>
+    <div class="landmark-box">
+      <img src="${st.img}" class="landmark-img-large" alt="${st.title}" onerror="this.style.background='#cbd5e1'">
+      <div>${st.landmark}</div>
+    </div>`;
+
+  if (st.isInfoStage) {
+    html += `
+      <div class="lesson-gate">
+        <h4>💎 گنجینهٔ دانش خوارزمی</h4>
+        <div class="lesson-content">${st.infoText}</div>
+        <div class="read-confirm" onclick="toggleReadConfirm(this)">
+          <input type="checkbox" id="readCheckbox" onclick="event.stopPropagation();updateContinueBtn()">
+          <span>همهٔ متن گنجینه را خواندم و متوجه شدم ✅</span>
+        </div>
+        <button id="continueBtn" class="continue-btn" disabled onclick="completeStage(3)">🎯 ثبت و بازگشت به نقشه</button>
+      </div>`;
+  } else {
+    let actionOnclick = st.isSimilarStage ? 'startSimilarPuzzle()' : st.isFactorStage ? 'startFactorPuzzle()' : 'showQuestions()';
+    let actionLabel = st.isSimilarStage ? '🧩 شروع پازل جملات متشابه (۶ کارتی)' : st.isFactorStage ? '🧩 شروع پازل اتصال' : '🎯 ادامه به سؤال‌ها';
+    html += `
+      <div class="lesson-gate">
+        <h4>💎 گنجینهٔ دانش — ابتدا بیاموز، سپس بدرخش</h4>
+        <div class="lesson-content">${st.lesson}</div>
+        <div class="read-confirm" onclick="toggleReadConfirm(this)">
+          <input type="checkbox" id="readCheckbox" onclick="event.stopPropagation();updateContinueBtn()">
+          <span>گنجینهٔ دانش را خواندم و آمادهٔ حل تمرین‌ها هستم ✅</span>
+        </div>
+        <button id="continueBtn" class="continue-btn" disabled onclick="${actionOnclick}">${actionLabel}</button>
+      </div>`;
+  }
+  document.getElementById('stageActiveContent').innerHTML = html;
+}
+
+function toggleReadConfirm(el) {
+  const cb = document.getElementById('readCheckbox');
+  cb.checked = !cb.checked;
+  updateContinueBtn();
+}
+function updateContinueBtn() {
+  const cb = document.getElementById('readCheckbox');
+  const btn = document.getElementById('continueBtn');
+  if (cb && btn) btn.disabled = !cb.checked;
+}
+
+/* ============================================================
+   ۵) حل سؤالات و اتمام مراحل
+   ============================================================ */
+function startSimilarPuzzle() { showQuestions(); }
+function startFactorPuzzle() { showQuestions(); }
+
+function showQuestions() {
+  const st = STAGES[currentStageIndex];
+  if (st.questionBank.length === 0) { completeStage(3); return; }
+  currentQuestionIndex = 0;
+  currentAttempt = 1;
+  currentChosenIdx = null;
+  renderQuizScreen();
+}
+
+function renderQuizScreen() {
+  const st = STAGES[currentStageIndex];
+  let html = `
+    <button class="btn-primary" style="width:auto;padding:8px 16px;font-size:13px;background:linear-gradient(135deg,#64748b,#94a3b8);box-shadow:0 4px 0 #475569;margin-bottom:16px" onclick="backToDashboard()">⬅️ بازگشت به نقشه</button>
+    <h2 style="color:var(--primary);margin-bottom:14px;font-size:20px">${st.title}</h2>
+    <div id="quizArea">${renderQuestionHtml()}</div>`;
+  document.getElementById('stageActiveContent').innerHTML = html;
+}
+
+function renderQuestionHtml() {
+  const q = currentQuestions[currentQuestionIndex];
+  const total = currentQuestions.length;
+  let html = `
+    <div class="question-text">سؤال ${fa(currentQuestionIndex + 1)} از ${fa(total)}: ${q.q}</div>
+    <div class="options-grid">`;
+  q.options.forEach((opt, i) => {
+    html += `<button class="btn-option" onclick="checkAnswer(${i})" id="opt-${i}"><code>${opt}</code></button>`;
+  });
+  html += `</div><div id="feedback" class="feedback-box"></div>`;
+  return html;
+}
+
+function checkAnswer(selected) {
+  const q = currentQuestions[currentQuestionIndex];
+  const fb = document.getElementById('feedback');
+  const btns = document.querySelectorAll('.btn-option');
+
+  if (selected === q.ans) {
+    sfx('correct');
+    currentStageCorrectAnswers++;
+    btns.forEach(b => b.disabled = true);
+    btns[q.ans].classList.add('right-choice');
+    fb.style.display = 'block';
+    fb.className = 'feedback-box correct';
+    fb.innerHTML = `✅ <b>آفرین! درست بود! ⭐</b><br><b>راه حل:</b> ${q.exp}`;
+    setTimeout(goNextOrFinish, 1800);
+  } else {
+    sfx('wrong');
+    btns[selected].classList.add('wrong-choice');
+    btns[q.ans].classList.add('right-choice');
+    btns.forEach(b => b.disabled = true);
+    fb.style.display = 'block';
+    fb.className = 'feedback-box incorrect';
+    fb.innerHTML = `❌ <b>پاسخ اشتباه بود.</b><br><b>راه حل:</b> ${q.exp}`;
+    setTimeout(goNextOrFinish, 2200);
+  }
+}
+
+function goNextOrFinish() {
+  currentQuestionIndex++;
+  if (currentQuestionIndex < currentQuestions.length) {
+    document.getElementById('quizArea').innerHTML = renderQuestionHtml();
+  } else {
+    completeStage(currentStageCorrectAnswers);
+  }
+}
+
+function completeStage(stars) {
+  stageStars[currentStageIndex] = stars;
+  stageCompleted[currentStageIndex] = true;
+  sfx('fanfare');
+  const st = STAGES[currentStageIndex];
+  const maxSt = st.maxStars || 3;
+  let starsDisplay = '⭐'.repeat(stars) + '☆'.repeat(Math.max(0, maxSt - stars));
+  let html = `
+    <div style="text-align:center;padding:30px">
+      <h3 style="color:#11998e;font-size:24px;margin-bottom:16px">🎉 دروازهٔ ${fa(currentStageIndex + 1)} باز شد!</h3>
+      <p style="font-size:16px">ستاره‌های کسب شده: <span class="star-rating">${starsDisplay}</span></p>
+      <p style="font-size:15px">نشان کسب‌شده: <strong>${st.badge}</strong></p>
+      <p style="color:var(--primary);font-weight:800;font-size:16px;background:linear-gradient(135deg,#fef3c7,#fde68a);display:inline-block;padding:10px 18px;border-radius:12px;margin-top:10px">${st.keyPiece} به کلیدهایت اضافه شد! 🔑</p>
+      <br><br>
+      <button class="btn-primary" onclick="backToDashboard()">بازگشت به نقشه و ادامهٔ مسیر 🗺️</button>
+    </div>`;
+  document.getElementById('stageActiveContent').innerHTML = html;
+}
+
+function backToDashboard() {
+  document.getElementById('stageScreen').style.display = 'none';
+  document.getElementById('reportScreen').style.display = 'none';
+  document.getElementById('treasureScreen').style.display = 'none';
+  document.getElementById('dashboardScreen').style.display = 'block';
+  renderTreasureMap();
+}
+
+/* ============================================================
+   ۶) فتح گنجینه و تولید کارنامه افقی A4
+   ============================================================ */
+function openTreasureChest() {
+  document.getElementById('dashboardScreen').style.display = 'none';
+  document.getElementById('treasureScreen').style.display = 'block';
+  if (!chestUnlocked) {
+    const chest = document.getElementById('chestIcon');
+    chest.classList.add('chest-shake');
+    setTimeout(() => {
+      chest.classList.remove('chest-shake');
+      chest.innerText = '🔓🎁';
+      sfx('fanfare');
+      document.getElementById('chestMessage').innerHTML = '✨ تبریک! تو گنجینهٔ دانش خوارزمی را فتح کردی! ✨';
+      document.getElementById('btnGoToReport').style.display = 'inline-block';
+      chestUnlocked = true;
+    }, 1200);
+  } else {
+    document.getElementById('btnGoToReport').style.display = 'inline-block';
+  }
+}
+
+function showFinalReport() {
+  gameEndTime = new Date();
+  document.getElementById('treasureScreen').style.display = 'none';
+  document.getElementById('reportScreen').style.display = 'block';
+
+  document.getElementById('repName').innerText = studentData.name;
+  document.getElementById('repClass').innerText = studentData.className;
+  document.getElementById('repSchool').innerText = studentData.school;
+  document.getElementById('repTeacher').innerText = studentData.teacher;
+
+  const optDate = { year: 'numeric', month: 'long', day: 'numeric' };
+  document.getElementById('repDate').innerText = gameStartTime.toLocaleDateString('fa-IR', optDate);
+  const diffMin = Math.floor((gameEndTime - gameStartTime) / 60000);
+  const diffSec = Math.floor(((gameEndTime - gameStartTime) % 60000) / 1000);
+  document.getElementById('repDuration').innerText = `${fa(diffMin)} دقیقه و ${fa(diffSec)} ثانیه`;
+
+  const totalMax = totalMaxStars();
+  const totalStars = stageStars.reduce((a, b) => a + b, 0);
+  const finalGrade = Math.round((totalStars / totalMax) * 20);
+  document.getElementById('repScore').innerText = fa(finalGrade);
+
+  let t = `<table class="report-table">
+    <thead>
+      <tr>
+        <th>ردیف</th>
+        <th>عنوان دروازه آموزشی</th>
+        <th>نشان علمی</th>
+        <th>میزان امتیاز (ستاره)</th>
+        <th>وضعیت کلید</th>
+      </tr>
+    </thead>
+    <tbody>`;
+  STAGES.forEach((st, i) => {
+    const maxSt = st.maxStars || 3;
+    t += `<tr>
+      <td>${fa(i + 1)}</td>
+      <td>${st.title}</td>
+      <td>${st.badge}</td>
+      <td>${('⭐'.repeat(stageStars[i]) + '☆'.repeat(Math.max(0, maxSt - stageStars[i])))} (${fa(stageStars[i])}/${fa(maxSt)})</td>
+      <td>${stageCompleted[i] ? '🔑 دریافت شد' : '—'}</td>
+    </tr>`;
+  });
+  t += `</tbody></table>`;
+  document.getElementById('repTable').innerHTML = t;
+}
+
+/* ============================================================
+   ۷) ساخت PDF افقی از طریق Canvas (بدون به هم ریختگی فونت فارسی)
+   ============================================================ */
+function generatePDF() {
+  const element = document.getElementById('pdfContent');
+
+  // رندر دقیق HTML به تصویر کیفیت بالا
+  html2canvas(element, {
+    scale: 3,
+    useCORS: true,
+    allowTaint: true,
+    backgroundColor: '#ffffff'
+  }).then(canvas => {
+    const imgData = canvas.toDataURL('image/jpeg', 1.0);
+    const { jsPDF } = window.jspdf;
+
+    // ایجاد سند PDF افقی A4
+    const pdf = new jsPDF({
+      orientation: 'landscape',
+      unit: 'mm',
+      format: 'a4'
+    });
+
+    const pdfWidth = pdf.internal.pageSize.getWidth();
+    const pdfHeight = pdf.internal.pageSize.getHeight();
+    const imgWidth = canvas.width;
+    const imgHeight = canvas.height;
+    const ratio = Math.min(pdfWidth / imgWidth, pdfHeight / imgHeight);
+
+    const imgX = (pdfWidth - imgWidth * ratio) / 2;
+    const imgY = (pdfHeight - imgHeight * ratio) / 2;
+
+    pdf.addImage(imgData, 'JPEG', imgX, imgY, imgWidth * ratio, imgHeight * ratio);
+    pdf.save(`کارنامه_ریاضی_${studentData.name.replace(/\s+/g, '_')}.pdf`);
+  }).catch(err => {
+    console.error('PDF generation failed:', err);
+    alert('خطا در صدور کارنامه. لطفاً مجدداً تلاش کنید.');
+  });
+}
+
+/* ============================================================
+   ۸) ارسال مستقیم کارنامه متنی به پیام‌رسان‌ها
+   ============================================================ */
+function sendReportToTeacher() {
+  const totalMax = totalMaxStars();
+  const totalStars = stageStars.reduce((a, b) => a + b, 0);
+  const finalGrade = Math.round((totalStars / totalMax) * 20);
+  
+  const text = `🎓 *گزارش کارنامه بازی ریاضی هشتم (فصل ۴)*\n` +
+               `👤 *دانش‌آموز:* ${studentData.name}\n` +
+               `🏫 *مدرسه:* ${studentData.school} (کلاس: ${studentData.className})\n` +
+               `👨‍🏫 *دبیر مربوطه:* ${studentData.teacher}\n` +
+               `-----------------------------------\n` +
+               `🏆 *نمره نهایی:* ${fa(finalGrade)} از ۲۰\n` +
+               `⭐ *مجموع ستاره‌ها:* ${fa(totalStars)} از ${fa(totalMax)}\n` +
+               `🔑 *کلیدهای فتح شده:* ۶ از ۶\n` +
+               `-----------------------------------\n` +
+               `این کارنامه از بازی تعاملی «سفر در مسیر جبر و معادله» صادر گردیده است.`;
+
+  const encodedText = encodeURIComponent(text);
+  window.open(`https://wa.me/?text=${encodedText}`, '_blank');
+}
+</script>
+</body>
+</html>
